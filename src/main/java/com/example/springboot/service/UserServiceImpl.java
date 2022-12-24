@@ -1,20 +1,21 @@
 package com.example.springboot.service;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springboot.dao.UserDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.springboot.dao.UserDao;
 import com.example.springboot.entity.User;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements com.example.springboot.service.UserService {
-    @Autowired
+public class UserServiceImpl implements UserService {
     private UserDao userDao;
+    UserServiceImpl(UserDao userDao){
+        this.userDao=userDao;
+    }
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
-       return userDao.getAllUsers();
+        return userDao.getAllUsers();
     }
 
     @Override
@@ -24,7 +25,7 @@ public class UserServiceImpl implements com.example.springboot.service.UserServi
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User getUser(int id) {
         return userDao.getUser(id);
     }
