@@ -1,6 +1,5 @@
 package com.example.springboot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,24 +10,23 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService=userService;
     }
 
 
     @RequestMapping("/")
-public String showAllUsers(Model model){
+    public String showAllUsers(Model model){
         List<User>allUsers=userService.getAllUsers();
         model.addAttribute("allUsers",allUsers);
-    return "allUsers";
-}
-@RequestMapping(value="/AddNewUser")
-public String addNewUser(Model model){
+        return "allUsers";
+    }
+    @RequestMapping(value="/AddNewUser")
+    public String addNewUser(Model model){
         User user=new User();
         model.addAttribute("user",user);
 
-    return "AddNewUser";
+        return "AddNewUser";
     }
     @RequestMapping("saveUser")
     public String saveUser(@ModelAttribute("user") User user){
@@ -53,6 +51,7 @@ public String addNewUser(Model model){
     }
 
 }
+
 
 
 
